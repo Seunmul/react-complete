@@ -1,4 +1,3 @@
-import React from 'react'
 import './Card.css'
 //사용자 지정 wrapper container
 function Card(props) {
