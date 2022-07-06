@@ -48,7 +48,7 @@ const ExpenseForm = (props) => {
     //기본 이벤트 방지
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -105,8 +105,10 @@ const ExpenseForm = (props) => {
           />
         </div>
       </div>
-      <div className="new-expense__action">
+      <div className="new-expense__actions">
         <button type="submit">Add Expense</button>
+        <button type="button" onClick={props.onCancel}>Cancel</button> 
+        {/* 폼을 전송하지 않는 타입 */}
       </div>
     </form>
   );

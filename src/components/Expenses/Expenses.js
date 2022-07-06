@@ -1,20 +1,28 @@
-import ExpenseItem from "./ExpenseItem";
-import ExpensesFilter from "./ExpensesFilter";
-import Card from "../UI/Card";
-import "./Expenses.css";
 import { useState } from "react";
+
+import Card from "../UI/Card";
+import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
+import "./Expenses.css";
 
 const Expenses = (props) => {
   // console.log(props.items);
   const [filteredYear, setFilteredYear] = useState("2022");
-
+  console.log("Expenses out.js");
   const filterChangeHandler = (selectedYear) => {
-    console.log("Expenses.js");
-    setFilteredYear((prev)=>{return selectedYear});
+    setFilteredYear((prev) => {
+      return selectedYear;
+    });
     console.log(selectedYear);
   };
+  //filterChangeHandler에 의해 state가 변경되면
+  //Expenses.js가 재실행되고
+  //filteredExpenses에 필터링된 요소가 저장된다.
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
 
-  
   return (
     <div>
       <Card className="expenses">
@@ -22,18 +30,8 @@ const Expenses = (props) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {props.items.map((expense, idx, array) =>
-          expense.date.getFullYear()===parseInt(filteredYear) ? (
-            <ExpenseItem
-              key={idx}
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            ></ExpenseItem>
-          ) : (
-            <div key={idx}></div>
-          )
-        )}
+        <ExpensesChart expenses={filteredExpenses}/>
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
@@ -61,3 +59,40 @@ export default Expenses;
 //     amount={expenses[3].amount}
 //     date={expenses[3].date}
 //   ></ExpenseItem> */}
+
+// {props.items.map((expense, idx, array) =>
+//   expense.date.getFullYear()===parseInt(filteredYear) ? (
+//     <ExpenseItem
+//       key={expense.id}
+//       title={expense.title}
+//       amount={expense.amount}
+//       date={expense.date}
+//     ></ExpenseItem>
+//   ) : (
+//     <div key={idx}></div>
+//   ))}
+
+// {/* {filteredExpenses.length === 0 ? (
+//           <p>No Expenses Found.</p>
+//         ) : (
+//           filteredExpenses.map((expense, idx, array) => (
+//             <ExpenseItem
+//               key={expense.id}
+//               title={expense.title}
+//               amount={expense.amount}
+//               date={expense.date}
+//             ></ExpenseItem>
+//           ))
+//         )} 조건부 연산자 ? : 를 사용한 경우*/}
+
+// {/* &&를 사용한 경우 */}
+// {filteredExpenses.length === 0 && <p>No expenses found.</p>}
+// {filteredExpenses.length > 0 &&
+//   filteredExpenses.map((expense, idx, array) => (
+//     <ExpenseItem
+//       key={expense.id}
+//       title={expense.title}
+//       amount={expense.amount}
+//       date={expense.date}
+//     ></ExpenseItem>
+//   ))}
