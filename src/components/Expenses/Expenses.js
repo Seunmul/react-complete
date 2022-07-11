@@ -10,6 +10,7 @@ const Expenses = (props) => {
   // console.log(props.items);
   const [filteredYear, setFilteredYear] = useState("2022");
   console.log("Expenses out.js");
+
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear((prev) => {
       return selectedYear;
@@ -19,7 +20,7 @@ const Expenses = (props) => {
   //filterChangeHandler에 의해 state가 변경되면
   //Expenses.js가 재실행되고
   //filteredExpenses에 필터링된 요소가 저장된다.
-  const filteredExpenses = props.items.filter((expense) => {
+  const filteredExpenses = props.expenses.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
